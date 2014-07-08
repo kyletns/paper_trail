@@ -39,11 +39,11 @@ describe Widget do
 
       subject { widget.versions.last.reify }
 
-      it { subject.should_not be_live }
+      it { subject.should_not be_paper_trail_live }
 
       it "should clear the `versions_association_name` virtual attribute" do
         subject.save!
-        subject.should be_live
+        subject.should be_paper_trail_live
       end
     end
 
@@ -81,7 +81,7 @@ describe Widget do
           before { PaperTrail.whodunnit = orig_name }
 
           context "accessed from live model instance" do
-            specify { widget.should be_live }
+            specify { widget.should be_paper_trail_live }
 
             it "should return the originator for the model at a given state" do
               widget.originator.should == orig_name

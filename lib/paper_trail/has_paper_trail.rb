@@ -168,7 +168,7 @@ module PaperTrail
     module InstanceMethods
       # Returns true if this instance is the current, live one;
       # returns false if this instance came from a previous version.
-      def live?
+      def paper_trail_live?
         source_version.nil?
       end
 
@@ -297,7 +297,7 @@ module PaperTrail
       end
 
       def reset_timestamp_attrs_for_update_if_needed!
-        return if self.live? # invoked via callback when a user attempts to persist a reified `Version`
+        return if self.paper_trail_live? # invoked via callback when a user attempts to persist a reified `Version`
         timestamp_attributes_for_update_in_model.each { |column| send("reset_#{column}!") }
       end
 
